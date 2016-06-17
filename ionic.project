@@ -1,0 +1,12 @@
+{
+  "name": "poem",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}

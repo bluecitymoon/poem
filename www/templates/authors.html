@@ -1,0 +1,28 @@
+<style>
+  .item p {
+    font-size: 13px;
+  }
+</style>
+<ion-view view-title="诗人">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar item-icon-right" ng-repeat="author in avaliableAuthors"
+                type="item-text-wrap"
+                ng-click="showDialog(author)">
+        <img ng-if="author.avatar" ng-src="img/{{author.avatar}}">
+        <img ng-if="!author.avatar" ng-src="img/default-avatar.png">
+
+        <h2>{{author.name}}</h2>
+
+        <p style="padding-top: 5px">{{author.desc}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          收藏
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadNextPage()" immediate-check="false"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>
