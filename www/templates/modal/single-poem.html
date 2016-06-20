@@ -1,0 +1,23 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-stable">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeDialog()"><i class="icon ion-ios-arrow-left"></i></button>
+    </div>
+    <h1 class="title">{{poem.title}}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="showAuthorPopover($event)"><i class="icon ion-ios-person-outline"></i></button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content>
+
+    <div style="margin-top: 1em;">
+      <p class="poem-item" ng-repeat="s in poem.content">
+        {{s}}
+      </p>
+    </div>
+
+
+  </ion-content>
+
+</ion-modal-view>

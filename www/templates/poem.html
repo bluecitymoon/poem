@@ -1,0 +1,28 @@
+<style>
+  .item p {
+    font-size: 13px;
+  }
+</style>
+<ion-view view-title="">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar item-icon-right" ng-repeat="poem in avaliablepoems"
+                type="item-text-wrap"
+                ng-click="showDialog(poem)">
+        <img ng-if="poem.avatar" ng-src="img/{{poem.avatar}}">
+        <img ng-if="!poem.avatar" ng-src="img/default-avatar.png">
+
+        <h2>{{poem.title}}</h2>
+
+        <p style="padding-top: 5px">{{poem.content.join('  ')}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          收藏
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadNextPage()" immediate-check="false"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

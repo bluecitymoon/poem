@@ -55,8 +55,6 @@ angular.module('poem.author-controllers', [])
 
       $scope.author = author;
 
-      $scope.author.descArray = author.desc.split("。");
-
       $scope.modal.show();
     };
 

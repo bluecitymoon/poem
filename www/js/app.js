@@ -1,7 +1,7 @@
-angular.module('tadpole-poem', ['ionic', 'poem.controllers', 'poem.author-controllers', 'poem.services'])
+angular.module('tadpole-poem', ['ionic', 'poem.controllers', 'poem.author-controllers', 'poem.poem-controllers', 'poem.services'])
 
   .run(function ($ionicPlatform) {
-    $ionicPlatform.ready(function () {
+    $ionicPlatform.ready(function (AuthorService, $rootScope) {
 
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -11,6 +11,7 @@ angular.module('tadpole-poem', ['ionic', 'poem.controllers', 'poem.author-contro
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
+
     });
   })
 
@@ -51,7 +52,15 @@ angular.module('tadpole-poem', ['ionic', 'poem.controllers', 'poem.author-contro
           }
         }
       })
-
+      .state('app.poems', {
+        url: '/poems',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/poem.html',
+            controller: 'PoemCtrl'
+          }
+        }
+      })
       .state('app.playlists', {
         url: '/playlists',
         views: {

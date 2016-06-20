@@ -14,7 +14,7 @@ angular.module('poem.services', [])
   .factory('PoemService', function ($http) {
 
     function readAllPoems() {
-      return $http.get('data/Poems.json');
+      return $http.get('data/poem.json');
     }
 
     return {
