@@ -1,8 +1,8 @@
 .poem-item {
   text-align: center;
-  font-size: 1.1em;
+  font-size: 1.2em;
   border-width: 0px;
-  padding: 2px;
+  padding: 12px;
 }
 
 
@@ -35,4 +35,8 @@
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.menu-icon {
+  float: right; font-size: x-large;
 }

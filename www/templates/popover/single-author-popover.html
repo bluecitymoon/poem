@@ -1,0 +1,35 @@
+<ion-popover-view>
+
+  <ion-content>
+
+    <div class="list">
+
+      <div class="item item-avatar">
+
+        <img ng-if="author.avatar" ng-src="img/{{author.avatar}}">
+
+        <h2>{{author.name}}</h2>
+
+        <p ng-if="author.birth && author.death && (author.death > author.birth)">{{author.birth}} -
+          {{author.death}}</p>
+
+        <p ng-if="author.birth && author.death && (author.death < author.birth)">前{{author.birth}} -
+          前{{author.death}}</p>
+
+        <p ng-if="!author.birth && !author.death">生卒不详</p>
+
+      </div>
+
+      <div class="item item-body">
+        <p ng-repeat="description in author.desc">
+          {{description}}
+        </p>
+
+      </div>
+
+    </div>
+
+    </div>
+
+  </ion-content>
+</ion-popover-view>

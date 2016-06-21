@@ -2,33 +2,6 @@ angular.module('poem.controllers', [])
 
   .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
 
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
-
-    $scope.loginData = {};
-
-
-    $ionicModal.fromTemplateUrl('templates/login.html', {
-      scope: $scope
-    }).then(function (modal) {
-      $scope.modal = modal;
-    });
-
-    $scope.closeLogin = function () {
-      $scope.modal.hide();
-    };
-
-    $scope.login = function () {
-      $scope.modal.show();
-    };
-
-    $scope.doLogin = function () {
-      console.log('Doing login', $scope.loginData);
-
-      $timeout(function () {
-        $scope.closeLogin();
-      }, 1000);
-    };
   })
 
   .controller('PlaylistsCtrl', function ($scope) {
@@ -46,17 +19,33 @@ angular.module('poem.controllers', [])
 
   })
 
-  .controller('HelloCtrl', function ($scope, $stateParams) {
+  .controller('HelloCtrl', function ($scope, AuthorService, $ionicPopover) {
 
-    $scope.warmup =
-      [
-        "粗缯大布裹生涯",
-        "腹有诗书气自华",
-        "厌伴老儒烹瓠叶",
-        "强随举子踏槐花",
-        "囊空不办寻春马",
-        "眼乱行看择婿车",
-        "得意犹堪夸世俗",
-        "诏黄新湿字如鸦"
-      ];
+    $scope.authors = [];
+
+    AuthorService.readAllAuthors().success(function (data) {
+
+      angular.forEach(data, function(author) {
+
+        if (author.avatar) {
+          $scope.authors.push(author);
+        }
+
+      });
+    });
+
+    $ionicPopover.fromTemplateUrl('templates/popover/single-author-popover.html', {
+      scope: $scope
+    }).then(function (popover) {
+      $scope.popover = popover;
+    });
+
+    $scope.showAuthorPopover = function($event, author) {
+
+      $scope.author = author;
+
+      $scope.popover.show($event);
+    }
+
+
   });

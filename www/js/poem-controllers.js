@@ -24,16 +24,17 @@ angular.module('poem.poem-controllers', [])
 
       return poem;
     }
-    PoemService.readAllPoems().success(function (data) {
-
-      $scope.poems = data;
-
-      $scope.avaliablepoems = data.slice(0, defaultPageSize).map(mergeAuthorInformation);
-    });
 
     AuthorService.readAllAuthors().success(function (data) {
 
       $scope.authors = data;
+
+      PoemService.readAllPoems().success(function (data) {
+
+        $scope.poems = data;
+
+        $scope.avaliablepoems = data.slice(0, defaultPageSize).map(mergeAuthorInformation);
+      });
 
     });
 

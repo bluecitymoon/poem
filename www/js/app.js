@@ -1,7 +1,7 @@
 angular.module('tadpole-poem', ['ionic', 'poem.controllers', 'poem.author-controllers', 'poem.poem-controllers', 'poem.services'])
 
   .run(function ($ionicPlatform) {
-    $ionicPlatform.ready(function (AuthorService, $rootScope) {
+    $ionicPlatform.ready(function () {
 
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
