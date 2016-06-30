@@ -5,6 +5,11 @@
 </style>
 <ion-view view-title="诗人">
   <ion-content>
+
+    <div ng-if="avaliableAuthors.length == 0" class="text-center" style="padding-top: {{halfPhoneHeight}}px;">
+          <ion-spinner icon="lines" class="spinner-balanced" ></ion-spinner>
+    </div>
+
     <ion-list>
       <ion-item class="item-avatar item-icon-right" ng-repeat="author in avaliableAuthors"
                 type="item-text-wrap"

@@ -8,7 +8,7 @@
 
         <img ng-if="author.avatar" ng-src="img/{{author.avatar}}">
 
-        <h2>{{author.name}}</h2>
+        <h2>{{author.name}}<div style="float: right; font-size: .8em" class="deep-red">{{author.period}}</div></h2>
 
         <p ng-if="author.birth && author.death && (author.death > author.birth)">{{author.birth}} -
           {{author.death}}</p>

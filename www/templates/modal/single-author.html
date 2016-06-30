@@ -15,15 +15,16 @@
         <img ng-if="author.avatar" ng-src="img/{{author.avatar}}">
         <img ng-if="!author.avatar" ng-src="img/default-avatar.png">
 
-        <h2>{{author.name}}</h2>
+        <h2>{{author.name}}<div style="float: right" class="deep-red">{{author.period}}</div></h2>
 
         <p ng-if="author.birth && author.death && (author.death > author.birth)">[公元{{author.birth}}年 -
-          公元{{author.death}}年]</p>
+          公元{{author.death}}年]<span ng-if="author.age" style="float: right">{{author.age}}岁</span></p>
 
         <p ng-if="author.birth && author.death && (author.death < author.birth)">[公元前{{author.birth}}年 -
-          公元前{{author.death}}年]</p>
+          公元前{{author.death}}年]<span ng-if="author.age" style="float: right">{{author.age}}岁</span></p>
 
         <p ng-if="!author.birth && !author.death">[生卒不详]</p>
+
 
       </div>
 

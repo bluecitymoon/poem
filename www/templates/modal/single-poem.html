@@ -1,32 +1,29 @@
-<ion-modal-view>
-  <ion-header-bar class="bar-stable">
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeDialog()"><i class="icon ion-ios-arrow-left"></i></button>
-    </div>
-    <h1 class="title">{{poem.title}}</h1>
+<ion-modal-view ng-class="{'center' : poem.content.length < 10 }">
 
-    <div class="buttons">
-      <button class="button button-clear" ng-click="showAuthorPopover($event)"><i
-        class="icon ion-ios-person-outline"></i></button>
-    </div>
-  </ion-header-bar>
 
-  <ion-content>
+  <ion-content class="single-poem-background fullscreen-content" ng-class="{'center' : poem.content.length < 10 }" on-double-tap="closeDialog()" on-tap="closeDialog()" on-hold="showAuthorPopover($event)">
+
+    <ion-list>
+      <h4 class="poem-item" style="margin-top: 2em;">{{poem.title}}</h4>
+
+      <ion-item class="poem-item" ng-repeat="sentence in poem.content" style="background: inherit !important;">
+        <p class="fixed-poem-sentence">{{sentence}}</p>
+      </ion-item>
+
+    </ion-list>
 
     <br>
 
-    <ion-list>
-      <ion-item class="poem-item" ng-repeat="s in poem.content">
-        <p>{{s}}</p>
-      </ion-item>
-    </ion-list>
-    <!--<div style="margin-top: 1em;">-->
-    <!--<p class="poem-item" ng-repeat="s in poem.content">-->
-    <!--{{s}}-->
-    <!--</p>-->
-    <!--</div>-->
-
-
   </ion-content>
+
+  <!--<button class="button poem-button-left" ng-click="closeDialog()">-->
+    <!--<i class="icon ion-ios-arrow-left"></i>-->
+  <!--</button>-->
+
+  <!--<button class="button poem-button-right" ng-click="showAuthorPopover($event)">-->
+    <!--<i class="icon ion-ios-person-outline"></i>-->
+  <!--</button>-->
+
+  <!--<i class="icon ion-android-favorite-outline deep-red like-button"></i>-->
 
 </ion-modal-view>

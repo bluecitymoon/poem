@@ -1,6 +1,6 @@
 angular.module('poem.services', [])
 
-  .factory('AuthorService', function ($http) {
+  .factory('AuthorService', function ($http, $filter) {
 
     function readAllAuthors() {
       return $http.get('data/author.json');
@@ -11,10 +11,18 @@ angular.module('poem.services', [])
     };
   })
 
-  .factory('PoemService', function ($http) {
+  .factory('PoemService', function ($http, $rootScope) {
 
     function readAllPoems() {
-      return $http.get('data/poem.json');
+
+      $http.get('data/poem.json')
+        .success(function (response, status, headers, config) {
+
+          $rootScope.$broadcast('poems-load-event', {poems: response});
+
+      }).error(function (response, status, headers, config) {
+          //TODO
+      });
     }
 
     return {

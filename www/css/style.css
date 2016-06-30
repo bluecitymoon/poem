@@ -1,10 +1,10 @@
 .poem-item {
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.3em;
   border-width: 0px;
   padding: 12px;
+  letter-spacing: 2px;
 }
-
 
 .center {
   display: -webkit-box;
@@ -38,5 +38,84 @@
 }
 
 .menu-icon {
-  float: right; font-size: x-large;
+  float: right;
+  font-size: x-large;
+}
+
+.deep-red {
+  color: #ac3d67;
+}
+
+.like-button {
+  position: absolute;
+  bottom: 1.5em;
+  right: 1em;
+  font-size: 2em;
+}
+
+.fixed-poem-sentence {
+  font-size: 0.9em !important;
+}
+
+.single-poem-background {
+
+  background: url('../img/poem-background-after.jpg') center;
+  background-size: cover;
+  height: auto;
+  margin: 0 auto;
+
+}
+
+.poem-button-right {
+  position: absolute;
+  right: .5em;
+  top: 2em;
+  background: none;
+  border-width: 0px;
+}
+
+.poem-button-left {
+  position: absolute;
+  left: .5em;
+  top: 2em;
+  background: none;
+  border-width: 0px;
+}
+
+.transparent {
+  background: transparent !important;
+}
+
+.fullscreen-modal {
+  width: 100% !important;
+  height: 100%;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.fullscreen-content {
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+
+/* Fix modal backdrop for smaller devices */
+
+@media (max-width: 679px) {
+  .active .modal-backdrop-bg {
+    opacity: .5;
+  }
+  .modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0;
+  }
 }

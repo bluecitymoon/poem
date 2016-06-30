@@ -1,7 +1,19 @@
 angular.module('poem.controllers', [])
 
-  .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
+  .controller('AppCtrl', function ($scope, PoemService, $rootScope, $window) {
 
+    PoemService.readAllPoems();
+
+
+    $scope.$on('poems-load-event', function (event, data) {
+
+      $rootScope.allPoems = data.poems;
+
+    });
+
+    $rootScope.phoneHeight = $window.innerHeight;
+
+    $rootScope.halfPhoneHeight = parseInt($rootScope.phoneHeight / 2);
   })
 
   .controller('PlaylistsCtrl', function ($scope) {
@@ -25,7 +37,7 @@ angular.module('poem.controllers', [])
 
     AuthorService.readAllAuthors().success(function (data) {
 
-      angular.forEach(data, function(author) {
+      angular.forEach(data, function (author) {
 
         if (author.avatar) {
           $scope.authors.push(author);
@@ -40,7 +52,7 @@ angular.module('poem.controllers', [])
       $scope.popover = popover;
     });
 
-    $scope.showAuthorPopover = function($event, author) {
+    $scope.showAuthorPopover = function ($event, author) {
 
       $scope.author = author;
 

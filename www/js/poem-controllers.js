@@ -1,8 +1,7 @@
 angular.module('poem.poem-controllers', [])
 
-  .controller('PoemCtrl', function ($scope, PoemService, $stateParams, $state, $ionicModal, AuthorService, $filter, $ionicPopover ) {
+  .controller('PoemCtrl', function ($scope, PoemService, $stateParams, $state, $ionicModal, AuthorService, $filter, $ionicPopover, $rootScope ) {
 
-    $scope.poems = [];
     $scope.authors = [];
 
     $scope.avaliablepoems = [];
@@ -29,13 +28,7 @@ angular.module('poem.poem-controllers', [])
 
       $scope.authors = data;
 
-      PoemService.readAllPoems().success(function (data) {
-
-        $scope.poems = data;
-
-        $scope.avaliablepoems = data.slice(0, defaultPageSize).map(mergeAuthorInformation);
-      });
-
+      $scope.avaliablepoems = $rootScope.allPoems.slice(0, defaultPageSize).map(mergeAuthorInformation);
     });
 
     var pageSize = 20;
@@ -45,15 +38,15 @@ angular.module('poem.poem-controllers', [])
       var start = $scope.currentPage * pageSize + defaultPageSize;
       var end = start + pageSize;
 
-      if (end > $scope.poems.length) {
-        end = $scope.poems.length;
+      if (end > $rootScope.allPoems.length) {
+        end = $rootScope.allPoems.length;
 
         $scope.noMoreItemsAvailable = true;
       }
 
       $scope.currentPage++;
 
-      var nextPageItems = $scope.poems.slice(start, end);
+      var nextPageItems = $rootScope.allPoems.slice(start, end);
       angular.forEach(nextPageItems, function (value) {
 
         mergeAuthorInformation(value);
@@ -92,5 +85,12 @@ angular.module('poem.poem-controllers', [])
 
     $scope.showAuthorPopover = function($event) {
       $scope.popover.show($event);
-    }
+    };
+
+    $scope.$on('$destroy', function () {
+
+      $scope.modal.remove();
+
+    });
+
   });
