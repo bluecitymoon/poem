@@ -1,6 +1,8 @@
 angular.module('poem.author-controllers', [])
 
-  .controller('AuthorCtrl', function ($scope, AuthorService, $stateParams, $state, $ionicModal) {
+  .controller('AuthorCtrl', function ($scope, AuthorService, $stateParams, $state, $ionicModal, $rootScope, $timeout, PoemService) {
+
+    $scope.originalAuthors = [];
 
     $scope.authors = [];
 
@@ -11,6 +13,8 @@ angular.module('poem.author-controllers', [])
     AuthorService.readAllAuthors().success(function (data) {
 
       $scope.authors = data;
+
+      $scope.originalAuthors = angular.copy(data);
 
       $scope.avaliableAuthors = data.slice(0, defaultPageSize);
     });
@@ -36,6 +40,7 @@ angular.module('poem.author-controllers', [])
       });
 
       $scope.$broadcast('scroll.infiniteScrollComplete');
+
     };
 
 
@@ -47,8 +52,10 @@ angular.module('poem.author-controllers', [])
       $scope.modal = modal;
     });
 
-    $scope.closeDialog = function () {
+    $scope.closeAuthorDialog = function () {
       $scope.modal.hide();
+
+      $scope.authorPoems = [];
     };
 
     $scope.showDialog = function (author) {
@@ -56,24 +63,42 @@ angular.module('poem.author-controllers', [])
       $scope.author = author;
 
       $scope.modal.show();
+      $timeout(function () {
+        lookupAuthorPoems();
+      }, 1000);
     };
 
-  })
+    $scope.authorPoems = [];
+    function lookupAuthorPoems() {
 
-  .controller('PoemDetailCtrl', function ($scope, PoemService, $state, $ionicScrollDelegate) {
+      $scope.authorPoems = [];
+      angular.forEach($rootScope.allPoems, function (poem) {
 
-    $scope.$on('$ionicView.enter', function (e) {
-      $scope.poem = PoemService.getSelectedPoem();
+        if ($scope.author && $scope.author.id == poem.authorId) {
+          $scope.authorPoems.push(poem);
+        }
+      });
 
-      $scope.sentances = $scope.poem.content.split("。");
+    }
 
-      $ionicScrollDelegate.scrollTop();
-    });
+    $scope.keyword = {content: ''};
+    $scope.searchAuthor = function () {
 
-    $scope.goback = function () {
-      $state.go('tab.book');
+      $scope.currentPage = 0;
+      $scope.avaliableAuthors = [];
+
+
     };
 
+    $scope.showSinglePoem = function (poem) {
+
+      PoemService.initCommonPoemDialog($scope, poem)
+        .then(function(modal) {
+
+          modal.show();
+
+        });
+    }
 
   })
 

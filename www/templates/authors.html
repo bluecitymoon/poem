@@ -6,8 +6,18 @@
 <ion-view view-title="诗人">
   <ion-content>
 
+    <div class="item item-input-inset">
+
+      <label class="item-input-wrapper">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="共有{{authors.length}}位诗人" ng-model="keyword.content" style="width: 100%">
+      </label>
+
+      <button class="button button-small button-outline button-stable" ng-click="searchAuthor()">搜索</button>
+    </div>
+
     <div ng-if="avaliableAuthors.length == 0" class="text-center" style="padding-top: {{halfPhoneHeight}}px;">
-          <ion-spinner icon="lines" class="spinner-balanced" ></ion-spinner>
+      <ion-spinner icon="lines" class="spinner-balanced"></ion-spinner>
     </div>
 
     <ion-list>
@@ -28,6 +38,8 @@
       </ion-item>
     </ion-list>
 
-    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadNextPage()" immediate-check="false"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadNextPage()" immediate-check="false">
+
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

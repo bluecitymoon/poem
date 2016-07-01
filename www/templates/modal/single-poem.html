@@ -4,10 +4,10 @@
   <ion-content class="single-poem-background fullscreen-content" ng-class="{'center' : poem.content.length < 10 }" on-double-tap="closeDialog()" on-tap="closeDialog()" on-hold="showAuthorPopover($event)">
 
     <ion-list>
-      <h4 class="poem-item" style="margin-top: 2em;">{{poem.title}}</h4>
+      <h4 class="poem-item" style="margin-top: 2em;" ng-bind-html="poem.title"></h4>
 
       <ion-item class="poem-item" ng-repeat="sentence in poem.content" style="background: inherit !important;">
-        <p class="fixed-poem-sentence">{{sentence}}</p>
+        <p class="fixed-poem-sentence" ng-bind-html="sentence"></p>
       </ion-item>
 
     </ion-list>

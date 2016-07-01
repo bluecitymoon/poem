@@ -11,7 +11,7 @@ angular.module('poem.services', [])
     };
   })
 
-  .factory('PoemService', function ($http, $rootScope) {
+  .factory('PoemService', function ($http, $rootScope, $ionicModal) {
 
     function readAllPoems() {
 
@@ -25,8 +25,37 @@ angular.module('poem.services', [])
       });
     }
 
+    function initCommonPoemDialog($scope, poem) {
+
+      var promise;
+      $scope = $scope || $rootScope.$new();
+
+      promise = $ionicModal.fromTemplateUrl('templates/modal/single-poem.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+
+        $scope.poemModal = modal;
+
+        return modal;
+      });
+
+      $scope.closeDialog = function () {
+        $scope.poemModal.hide();
+      };
+
+      $scope.poem = poem;
+
+      $scope.$on('$destroy', function() {
+        $scope.poemModal.remove();
+      });
+
+      return promise;
+    }
+
     return {
-      readAllPoems: readAllPoems
+      readAllPoems: readAllPoems,
+      initCommonPoemDialog: initCommonPoemDialog
     };
 
   });

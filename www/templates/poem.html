@@ -5,18 +5,17 @@
 </style>
 <ion-view>
 
-
   <ion-content>
 
+
     <div class="item item-input-inset">
+
       <label class="item-input-wrapper">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="诗文名称或拼音" ng-model="keyword.content" ng-change="search()" style="width: 100%">
+        <input type="text" placeholder="共收录{{allPoems.length}}篇诗文" ng-model="keyword.content"style="width: 100%">
       </label>
-    </div>
 
-    <div class="item item-divider">
-      <p>共有<span class="deep-red">{{allPoems.length}}</span>篇诗文</p>
+      <button class="button button-small button-outline button-stable" ng-click="searchPoems()">搜索</button>
     </div>
 
     <div ng-if="avaliablepoems.length == 0" class="text-center" style="padding-top: {{halfPhoneHeight - 43}}px;">
@@ -32,9 +31,12 @@
         <img ng-if="poem.avatar" ng-src="img/{{poem.avatar}}">
         <img ng-if="!poem.avatar" ng-src="img/default-avatar.png">
 
-        <h2>{{poem.title}}</h2>
+        <h2 ng-bind-html="poem.title"></h2>
+
         <p ng-if="poem.author">{{poem.author.name}} ○ {{poem.author.period}}</p>
-        <p>{{poem.content.join('  ')}}</p>
+
+        <p ng-bind-html="poem.content.join(' ')"></p>
+
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(chat)">
@@ -43,6 +45,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadNextPage()" immediate-check="false"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadNextPage()"
+                         immediate-check="false"></ion-infinite-scroll>
   </ion-content>
 </ion-view>
