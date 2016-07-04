@@ -1,6 +1,6 @@
 angular.module('poem.author-controllers', [])
 
-  .controller('AuthorCtrl', function ($scope, AuthorService, $stateParams, $state, $ionicModal, $rootScope, $timeout, PoemService) {
+  .controller('AuthorCtrl', function ($scope, AuthorService, $stateParams, $state, $ionicModal, $rootScope, $timeout, PoemService, StorageService, $filter) {
 
     $scope.originalAuthors = [];
 
@@ -44,49 +44,40 @@ angular.module('poem.author-controllers', [])
     };
 
 
-    $scope.author = {};
+    $scope.collectAuthor = function (author) {
+      var collectedAuthors = StorageService.getArray('authors');
 
-    $ionicModal.fromTemplateUrl('templates/modal/single-author.html', {
-      scope: $scope
-    }).then(function (modal) {
-      $scope.modal = modal;
-    });
+      if (collectedAuthors && collectedAuthors.length > 0) {
 
-    $scope.closeAuthorDialog = function () {
-      $scope.modal.hide();
+        var existedAuthor = $filter('filter')(collectedAuthors, {id: author.id});
 
-      $scope.authorPoems = [];
+        if (existedAuthor && existedAuthor.length > 0) {
+          return;
+        } else {
+          collectedAuthors.push(author);
+        }
+
+      } else {
+        collectedAuthors = [author];
+      }
+
+      StorageService.setObject('authors', collectedAuthors);
     };
+
 
     $scope.showDialog = function (author) {
 
-      $scope.author = author;
-
-      $scope.modal.show();
-      $timeout(function () {
-        lookupAuthorPoems();
-      }, 1000);
+      AuthorService.initCommonAuthorDialog($scope, author)
+        .then(function(modal) {
+          modal.show();
+        });
     };
-
-    $scope.authorPoems = [];
-    function lookupAuthorPoems() {
-
-      $scope.authorPoems = [];
-      angular.forEach($rootScope.allPoems, function (poem) {
-
-        if ($scope.author && $scope.author.id == poem.authorId) {
-          $scope.authorPoems.push(poem);
-        }
-      });
-
-    }
 
     $scope.keyword = {content: ''};
     $scope.searchAuthor = function () {
 
       $scope.currentPage = 0;
       $scope.avaliableAuthors = [];
-
 
     };
 
@@ -100,14 +91,4 @@ angular.module('poem.author-controllers', [])
         });
     }
 
-  })
-
-  .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
-  })
-
-  .controller('AccountCtrl', function ($scope) {
-    $scope.settings = {
-      enableFriends: true
-    };
   });

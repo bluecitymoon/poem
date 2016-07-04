@@ -1,0 +1,53 @@
+<ion-view view-title="">
+  <ion-content>
+
+    <div class="padding">
+      <ti-segmented-control on-select="showCategoryItems($index)">
+        <ti-segmented-control-button class="button-stable" title="'诗人'" selected></ti-segmented-control-button>
+
+        <ti-segmented-control-button class="button-stable" title="'诗文'"></ti-segmented-control-button>
+      </ti-segmented-control>
+    </div>
+
+    <ion-list ng-if="selectedSegment == 0">
+
+      <ion-item class="item-avatar item-icon-right" ng-repeat="author in collectedAuthors"
+                type="item-text-wrap"
+                ng-click="showSingleAuthor(author)">
+        <img ng-if="author.avatar" ng-src="img/{{author.avatar}}">
+        <img ng-if="!author.avatar" ng-src="img/default-avatar.png">
+
+        <h2>{{author.name}}</h2>
+
+        <p style="padding-top: 5px">{{author.desc[0]}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+      </ion-item>
+    </ion-list>
+
+    <ion-list ng-if="selectedSegment == 1">
+
+      <ion-item class="item-avatar item-icon-right" ng-repeat="poem in collectedPoems"
+                type="item-text-wrap"
+                ng-click="showSinglePoem(poem)">
+        <img ng-if="poem.avatar" ng-src="img/{{poem.avatar}}">
+        <img ng-if="!poem.avatar" ng-src="img/default-avatar.png">
+
+        <h2 ng-bind-html="poem.title"></h2>
+
+        <p ng-if="poem.author">{{poem.author.name}} ○ {{poem.author.period}}</p>
+
+        <p ng-bind-html="poem.content.join(' ')"></p>
+
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+    </ion-list>
+
+    <ion-list>
+      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+        {{playlist.title}}
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

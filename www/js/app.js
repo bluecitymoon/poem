@@ -1,4 +1,4 @@
-angular.module('tadpole-poem', ['ionic', 'poem.controllers', 'poem.author-controllers', 'poem.poem-controllers', 'poem.services'])
+angular.module('tadpole-poem', ['ionic','ti-segmented-control', 'poem.controllers', 'poem.author-controllers', 'poem.poem-controllers', 'poem.services'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -34,15 +34,6 @@ angular.module('tadpole-poem', ['ionic', 'poem.controllers', 'poem.author-contro
         }
       })
 
-      .state('app.browse', {
-        url: '/browse',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/browse.html'
-          }
-        }
-      })
-
       .state('app.authors', {
         url: '/authors',
         views: {
@@ -61,22 +52,12 @@ angular.module('tadpole-poem', ['ionic', 'poem.controllers', 'poem.author-contro
           }
         }
       })
-      .state('app.playlists', {
-        url: '/playlists',
+      .state('app.collections', {
+        url: '/collections',
         views: {
           'menuContent': {
-            templateUrl: 'templates/playlists.html',
-            controller: 'PlaylistsCtrl'
-          }
-        }
-      })
-
-      .state('app.single', {
-        url: '/playlists/:playlistId',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/playlist.html',
-            controller: 'PlaylistCtrl'
+            templateUrl: 'templates/collections.html',
+            controller: 'CollectionsCtrl'
           }
         }
       })

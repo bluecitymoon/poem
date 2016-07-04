@@ -1,6 +1,6 @@
 angular.module('poem.poem-controllers', [])
 
-  .controller('PoemCtrl', function ($scope, PoemService, $stateParams, $state, $ionicModal, AuthorService, $filter, $ionicPopover, $rootScope, $timeout ) {
+  .controller('PoemCtrl', function ($scope, PoemService, $stateParams, $state, $ionicModal, AuthorService, $filter, $ionicPopover, $rootScope, $timeout, StorageService ) {
 
     $scope.authors = [];
 
@@ -25,6 +25,28 @@ angular.module('poem.poem-controllers', [])
 
       return poem;
     }
+
+    $scope.collectPoem = function(poem) {
+
+      var collectedPoems = StorageService.getArray('poems');
+
+      if (collectedPoems && collectedPoems.length > 0) {
+
+        var existedPoem = $filter('filter')(collectedPoems, {id: poem.id});
+
+        if (existedPoem && existedPoem.length > 0) {
+          return;
+        } else {
+          collectedPoems.push(poem);
+        }
+
+      } else {
+        collectedPoems = [poem];
+      }
+
+      StorageService.setObject('poems', collectedPoems);
+
+    };
 
     $timeout(function() {
 
@@ -64,23 +86,14 @@ angular.module('poem.poem-controllers', [])
     };
 
 
-    $scope.poem = {};
-
-    $ionicModal.fromTemplateUrl('templates/modal/single-poem.html', {
-      scope: $scope
-    }).then(function (modal) {
-      $scope.modal = modal;
-    });
-
-    $scope.closeDialog = function () {
-      $scope.modal.hide();
-    };
-
     $scope.showDialog = function (poem) {
 
-      $scope.poem = poem;
+      PoemService.initCommonPoemDialog($scope, poem)
+        .then(function(modal) {
 
-      $scope.modal.show();
+          modal.show();
+
+        });
     };
 
     $ionicPopover.fromTemplateUrl('templates/popover/author-popover.html', {
@@ -93,11 +106,6 @@ angular.module('poem.poem-controllers', [])
       $scope.popover.show($event);
     };
 
-    $scope.$on('$destroy', function () {
-
-      $scope.modal.remove();
-
-    });
 
     $scope.keyword = {content: ''};
     $scope.searchPoems = function() {
@@ -120,21 +128,6 @@ angular.module('poem.poem-controllers', [])
 
         }
 
-        //else { //TODO search in content
-        //
-        //  var sentanceMatch = false;
-        //
-        //  for (var i = 0; i < poem.content.length; i ++) {
-        //
-        //
-        //    if (!sentanceMatch && poem.content[i].indexOf($scope.keyword.content) > -1) {
-        //
-        //      poem.content[i] = poem.content[i].replace(regex, newValue);
-        //      sentanceMatch = true;
-        //
-        //    }
-        //  }
-        //}
       });
 
       $scope.currentPage = 0;

@@ -16,20 +16,45 @@ angular.module('poem.controllers', [])
     $rootScope.halfPhoneHeight = parseInt($rootScope.phoneHeight / 2);
   })
 
-  .controller('PlaylistsCtrl', function ($scope) {
-    $scope.playlists = [
-      {title: 'Reggae', id: 1},
-      {title: 'Chill', id: 2},
-      {title: 'Dubstep', id: 3},
-      {title: 'Indie', id: 4},
-      {title: 'Rap', id: 5},
-      {title: 'Cowbell', id: 6}
-    ];
+  .controller('CollectionsCtrl', function ($scope, StorageService, PoemService, AuthorService) {
+
+    $scope.collectedPoems = [];
+    $scope.collectedAuthors = [];
+
+    $scope.$on('$ionicView.enter', function (e) {
+
+      $scope.collectedPoems = StorageService.getArray('poems');
+      $scope.collectedAuthors = StorageService.getArray('authors');
+    });
+
+    $scope.selectedSegment = 0;
+    $scope.showCategoryItems = function (index) {
+      $scope.selectedSegment = index;
+
+      $scope.$applyAsync();
+    };
+
+    $scope.showSinglePoem = function (poem) {
+
+      PoemService.initCommonPoemDialog($scope, poem)
+        .then(function(modal) {
+
+          modal.show();
+
+        });
+    };
+
+    $scope.showSingleAuthor = function(author) {
+
+      AuthorService.initCommonAuthorDialog($scope, author)
+        .then(function(modal) {
+          modal.show();
+        })
+    };
+
+
   })
 
-  .controller('PlaylistCtrl', function ($scope, $stateParams) {
-
-  })
 
   .controller('HelloCtrl', function ($scope, AuthorService, $ionicPopover) {
 
