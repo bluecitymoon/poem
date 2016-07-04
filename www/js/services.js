@@ -56,7 +56,7 @@ angular.module('poem.services', [])
 
     return {
       readAllAuthors: readAllAuthors,
-      initCommonAuthorDialog : initCommonAuthorDialog
+      initCommonAuthorDialog: initCommonAuthorDialog
     };
   })
 
@@ -100,7 +100,6 @@ angular.module('poem.services', [])
       });
 
 
-
       return promise;
     }
 
@@ -137,4 +136,56 @@ angular.module('poem.services', [])
         return JSON.parse($window.localStorage[key] || '[]');
       }
     };
+  })
+
+  .factory('UtilService', function ($ionicLoading, $ionicPopup) {
+
+
+    function showLoadingScreen(message) {
+
+      var msg = '正在载入';
+      if (message) {
+        msg = message;
+      }
+      $ionicLoading.show({
+        template: '<ion-spinner icon=\"lines\" class=\"spinner-balanced\"></ion-spinner> '
+      });
+    }
+
+    function closeLoadingScreen() {
+      $ionicLoading.hide();
+    }
+
+    function showAlert(message, callback) {
+
+      if (navigator && navigator.notification) {
+
+        navigator.notification.alert(
+          message,  // message
+          callback,         // callback
+          '提示信息',            // title
+          '确定'                  // buttonName
+        );
+      } else {
+        $ionicPopup.alert({
+          title: '提示信息',
+          template: '<h5 style="text-align: center"> ' + message + '</h5>',
+          okText: '确定',
+          okType: 'button button-block button-positive'
+        }).then(function () {
+          if (callback) {
+            callback();
+          }
+
+        });
+      }
+    }
+
+
+    return {
+      showLoadingScreen: showLoadingScreen,
+      closeLoadingScreen: closeLoadingScreen,
+      showAlert: showAlert
+    }
   });
+

@@ -1,6 +1,6 @@
 angular.module('poem.author-controllers', [])
 
-  .controller('AuthorCtrl', function ($scope, AuthorService, $stateParams, $state, $ionicModal, $rootScope, $timeout, PoemService, StorageService, $filter) {
+  .controller('AuthorCtrl', function ($scope, AuthorService, $stateParams, $state, $ionicModal, $rootScope, $timeout, PoemService, StorageService, $filter, UtilService) {
 
     $scope.originalAuthors = [];
 
@@ -43,7 +43,6 @@ angular.module('poem.author-controllers', [])
 
     };
 
-
     $scope.collectAuthor = function (author) {
       var collectedAuthors = StorageService.getArray('authors');
 
@@ -52,8 +51,11 @@ angular.module('poem.author-controllers', [])
         var existedAuthor = $filter('filter')(collectedAuthors, {id: author.id});
 
         if (existedAuthor && existedAuthor.length > 0) {
+
+          UtilService.showAlert('落花有意随流水，流水无心恋落花。');
           return;
         } else {
+
           collectedAuthors.push(author);
         }
 
@@ -62,15 +64,8 @@ angular.module('poem.author-controllers', [])
       }
 
       StorageService.setObject('authors', collectedAuthors);
-    };
 
-
-    $scope.showDialog = function (author) {
-
-      AuthorService.initCommonAuthorDialog($scope, author)
-        .then(function(modal) {
-          modal.show();
-        });
+      UtilService.showAlert('朝曦迎客艳重冈，晚雨留人入醉乡。');
     };
 
     $scope.keyword = {content: ''};
@@ -81,14 +76,22 @@ angular.module('poem.author-controllers', [])
 
     };
 
+    $scope.showDialog = function (author) {
+
+      AuthorService.initCommonAuthorDialog($scope, author)
+        .then(function (modal) {
+          modal.show();
+        });
+    };
+
     $scope.showSinglePoem = function (poem) {
 
       PoemService.initCommonPoemDialog($scope, poem)
-        .then(function(modal) {
+        .then(function (modal) {
 
           modal.show();
 
         });
-    }
+    };
 
   });

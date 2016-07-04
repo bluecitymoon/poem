@@ -37,24 +37,22 @@ angular.module('poem.controllers', [])
     $scope.showSinglePoem = function (poem) {
 
       PoemService.initCommonPoemDialog($scope, poem)
-        .then(function(modal) {
+        .then(function (modal) {
 
           modal.show();
 
         });
     };
 
-    $scope.showSingleAuthor = function(author) {
+    $scope.showSingleAuthor = function (author) {
 
       AuthorService.initCommonAuthorDialog($scope, author)
-        .then(function(modal) {
+        .then(function (modal) {
           modal.show();
         })
     };
 
-
   })
-
 
   .controller('HelloCtrl', function ($scope, AuthorService, $ionicPopover) {
 
@@ -83,6 +81,5 @@ angular.module('poem.controllers', [])
 
       $scope.popover.show($event);
     }
-
 
   });

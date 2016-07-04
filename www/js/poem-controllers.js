@@ -1,6 +1,6 @@
 angular.module('poem.poem-controllers', [])
 
-  .controller('PoemCtrl', function ($scope, PoemService, $stateParams, $state, $ionicModal, AuthorService, $filter, $ionicPopover, $rootScope, $timeout, StorageService ) {
+  .controller('PoemCtrl', function ($scope, PoemService, $stateParams, $state, $ionicModal, AuthorService, $filter, $ionicPopover, $rootScope, $timeout, StorageService, UtilService) {
 
     $scope.authors = [];
 
@@ -15,7 +15,7 @@ angular.module('poem.poem-controllers', [])
       var authorId = poem.authorId;
       if (authorId) {
 
-        var author = $filter('filter')($scope.authors, {id : authorId})[0];
+        var author = $filter('filter')($scope.authors, {id: authorId})[0];
 
         if (author) {
           poem.author = author;
@@ -26,7 +26,7 @@ angular.module('poem.poem-controllers', [])
       return poem;
     }
 
-    $scope.collectPoem = function(poem) {
+    $scope.collectPoem = function (poem) {
 
       var collectedPoems = StorageService.getArray('poems');
 
@@ -35,6 +35,9 @@ angular.module('poem.poem-controllers', [])
         var existedPoem = $filter('filter')(collectedPoems, {id: poem.id});
 
         if (existedPoem && existedPoem.length > 0) {
+
+          UtilService.showAlert('我本将心向明月，奈何明月照沟渠。');
+
           return;
         } else {
           collectedPoems.push(poem);
@@ -46,9 +49,12 @@ angular.module('poem.poem-controllers', [])
 
       StorageService.setObject('poems', collectedPoems);
 
+
+      UtilService.showAlert('花径不曾缘客扫，逢门今始为君开。');
+
     };
 
-    $timeout(function() {
+    $timeout(function () {
 
       AuthorService.readAllAuthors().success(function (data) {
 
@@ -89,7 +95,7 @@ angular.module('poem.poem-controllers', [])
     $scope.showDialog = function (poem) {
 
       PoemService.initCommonPoemDialog($scope, poem)
-        .then(function(modal) {
+        .then(function (modal) {
 
           modal.show();
 
@@ -102,20 +108,20 @@ angular.module('poem.poem-controllers', [])
       $scope.popover = popover;
     });
 
-    $scope.showAuthorPopover = function($event) {
+    $scope.showAuthorPopover = function ($event) {
       $scope.popover.show($event);
     };
 
 
     $scope.keyword = {content: ''};
-    $scope.searchPoems = function() {
+    $scope.searchPoems = function () {
 
       $scope.poems = [];
 
       $scope.avaliablepoems = [];
       $scope.noMoreItemsAvailable = false;
 
-      angular.forEach($rootScope.allPoems, function(poem) {
+      angular.forEach($rootScope.allPoems, function (poem) {
 
         var regex = new RegExp($scope.keyword.content, "g");
         var newValue = "<span class='deep-red'>" + $scope.keyword.content + "</span>";
