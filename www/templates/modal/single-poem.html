@@ -6,7 +6,7 @@
     <ion-list>
       <h4 class="poem-item" style="margin-top: 2em;" ng-bind-html="poem.title"></h4>
 
-      <ion-item class="poem-item" ng-repeat="sentence in poem.content" style="background: inherit !important;">
+      <ion-item class="poem-item" ng-repeat="sentence in poem.content track by $index" style="background: inherit !important;">
         <p class="fixed-poem-sentence" ng-bind-html="sentence"></p>
       </ion-item>
 
