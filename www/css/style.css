@@ -119,3 +119,28 @@
     opacity: 0;
   }
 }
+
+nvd3:nth-child(1) > svg {
+    background-color: hotpink;
+    border-bottom: 2px solid indianred;
+}
+
+nvd3:nth-child(2) > svg {
+    background-color: darkorange;
+    border-bottom: 2px solid indianred;
+}
+
+nvd3:nth-child(3) > svg {
+    background-color: indianred;
+    border-bottom: 2px solid hotpink;
+}
+
+nvd3:nth-child(4) > svg {
+    background-color: chartreuse;
+    border-bottom: 2px solid hotpink;
+}
+
+nvd3:nth-child(5) > svg {
+    background-color: mediumpurple;
+    border-bottom: 2px solid hotpink;
+}

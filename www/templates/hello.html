@@ -3,17 +3,19 @@
 
     <div ng-if="authors.length == 0" class="text-center" style="padding-top: {{halfPhoneHeight - 43}}px;">
 
-      <p class="deep-red">腹有诗书气自华</p>
-
-      <ion-spinner icon="lines" class="spinner-balanced"></ion-spinner>
+      <p class="deep-red" style="font-size: 1.2em">腹有诗书气自华</p>
 
     </div>
 
-    <ion-list>
-      <div draggable="true" class="item-avatar" collection-repeat="author in authors" collection-item-height="'80px'" collection-item-width="'16%'">
-        <img ng-src="img/{{author.avatar}}" ng-click="showAuthorPopover($event, author)">
+      <div ng-if="authors.length > 0">
+
+          <ion-list>
+              <div class="item-avatar" collection-repeat="author in authors" collection-item-height="'80px'" collection-item-width="'16%'">
+                  <img ng-src="img/{{author.avatar}}" ng-click="showAuthorPopover($event, author)">
+              </div>
+          </ion-list>
+
       </div>
-    </ion-list>
 
   </ion-content>
 </ion-view>

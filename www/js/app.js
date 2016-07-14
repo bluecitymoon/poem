@@ -1,4 +1,4 @@
-angular.module('tadpole-poem', ['ionic','ti-segmented-control', 'poem.controllers', 'poem.author-controllers', 'poem.poem-controllers', 'poem.services'])
+angular.module('tadpole-poem', ['ionic','ti-segmented-control', 'poem.controllers', 'poem.author-controllers', 'poem.poem-controllers', 'poem.services', 'nvd3'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
