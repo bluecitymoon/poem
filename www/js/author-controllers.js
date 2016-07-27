@@ -10,14 +10,17 @@ angular.module('poem.author-controllers', [])
         $scope.currentPage = 0;
         var defaultPageSize = 50;
 
-        AuthorService.readAllAuthors().success(function (data) {
+        $timeout(function () {
 
-            $scope.authors = data;
+            AuthorService.readAllAuthors().success(function (data) {
 
-            $scope.originalAuthors = angular.copy(data);
+                $scope.authors = data;
 
-            $scope.avaliableAuthors = data.slice(0, defaultPageSize);
-        });
+                $scope.originalAuthors = angular.copy(data);
+
+                $scope.avaliableAuthors = data.slice(0, defaultPageSize);
+            });
+        }, 500);
 
         var pageSize = 20;
         $scope.noMoreItemsAvailable = false;
