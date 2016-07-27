@@ -15,18 +15,15 @@ angular.module('poem.controllers', [])
 
         $rootScope.halfPhoneHeight = parseInt($rootScope.phoneHeight / 2);
 
-
         $scope.authorPeriodAvgAge = [
             {
                 key: "Test One", values: [
                 {number: 74, period: "先秦"},
                 {number: 68, period: "元"},
-
                 {number: 66.1, period: "清"},
                 {number: 64, period: "宋"},
                 {number: 62.5, period: "唐"},
                 {number: 61.6, period: "明"},
-
                 {number: 59.6, period: "隋"},
                 {number: 58.3, period: "南北朝"},
                 {number: 55.8, period: "魏晋"},
@@ -40,19 +37,16 @@ angular.module('poem.controllers', [])
         $scope.periodAuthors = [
             {number: 30, period: "先秦"},
             {number: 234, period: "元"},
-
             {number: 160, period: "清"},
             {number: 819, period: "宋"},
             {number: 1601, period: "唐"},
             {number: 104, period: "明"},
-
             {number: 10, period: "隋"},
             {number: 54, period: "南北朝"},
             {number: 29, period: "魏晋"},
             {number: 19, period: "五代"},
             {number: 58, period: "两汉"},
             {number: 3, period: "金"}
-
         ];
 
         $scope.periodAuthorsOption = {
